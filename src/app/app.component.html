@@ -1,5 +1,25 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<h1>
-  Welcome to {{ title }}!
-</h1>
-<router-outlet></router-outlet>
+<app-header [fixed]="true" [navbarBrandFull]="{src: 'assets/img/brand/logo.svg', width: 89, height: 25, alt: 'CoreUI Logo'}"
+  [navbarBrandMinimized]="{src: 'assets/img/brand/sygnet.svg', width: 30, height: 30, alt: 'CoreUI Logo'}" [sidebarToggler]="'lg'"
+  [asideMenuToggler]="'lg'">
+  <ul class="nav navbar-nav d-md-down-none">
+    <li class="nav-item px-3">
+      <a class="nav-link" href="/calculators/fd">FD Calculator</a>
+    </li>
+    <li class="nav-item px-3">
+      <a class="nav-link" href="/calculators/rd">RD Calculator</a>
+    </li>
+  </ul>
+</app-header>
+<div class="app-body">
+  <main class="main">
+    <div class="container-fluid">
+      <router-outlet></router-outlet>
+    </div>
+    <!-- /.container-fluid -->
+  </main>
+</div>
+<app-footer>
+  <span>
+    &copy; 2018-19 Naga Srinivas.</span>
+  <span class="ml-auto">Powered by Angular</span>
+</app-footer>

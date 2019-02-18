@@ -7,6 +7,7 @@ import { ChartsModule } from 'ng2-charts';
 import { HomeLoanCalcComponent } from './home-loan-calc/home-loan-calc.component';
 import { FDCalcComponent } from './fd-calc/fd-calc.component';
 import { AppFooterModule, AppHeaderModule } from '@coreui/angular';
+import { RDCalcComponent } from './rd-calc/rd-calc.component';
 
 @NgModule({
   imports: [
@@ -18,7 +19,7 @@ import { AppFooterModule, AppHeaderModule } from '@coreui/angular';
     ChartsModule,
 
   ],
-  declarations: [HomeLoanCalcComponent, FDCalcComponent]
+  declarations: [HomeLoanCalcComponent, FDCalcComponent, RDCalcComponent]
 })
 export class CalculatorsModule {
 

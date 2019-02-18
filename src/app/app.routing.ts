@@ -8,12 +8,15 @@ import { DefaultLayoutComponent, CalculatorLayoutComponent } from './containers'
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'dashboard',
+    redirectTo: 'calculators/fd',
     pathMatch: 'full',
   },
   {
     path: 'calculators',
     loadChildren: './calculators/calc.module#CalculatorsModule'
+  }, {
+    path: 'abc',
+    component: CalculatorLayoutComponent
   }
 ];
 
