@@ -27,7 +27,6 @@
     "@coreui/coreui": "^2.1.6",
     "@coreui/coreui-plugin-chartjs-custom-tooltips": "^1.2.0",
     "@coreui/icons": "0.3.0",
-    "@ng-toolkit/universal": "^1.1.51",
     "bootstrap": "^4.2.1",
     "chart.js": "^2.7.3",
     "core-js": "^2.6.2",
