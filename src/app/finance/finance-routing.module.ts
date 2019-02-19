@@ -4,6 +4,7 @@ import { HomeLoanCalcComponent } from './home-loan-calc/home-loan-calc.component
 import { FDCalcComponent } from './fd-calc/fd-calc.component';
 import { RDCalcComponent } from './rd-calc/rd-calc.component';
 import { CalculatorLayoutComponent } from '../containers';
+import { PpfCalcComponent } from './ppf-calc/ppf-calc.component';
 
 const routes: Routes = [
   {
@@ -26,6 +27,12 @@ const routes: Routes = [
           title: 'Recurring Deposite Calculator'
         },
         component: RDCalcComponent
+      }, {
+        path: 'ppf',
+        data: {
+          title: 'PPF Calculator'
+        },
+        component: PpfCalcComponent
       }
     ]
   }
@@ -35,4 +42,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class CalculatorsRoutingModule { }
+export class FinanceRoutingModule { }

@@ -8,11 +8,11 @@ import { DefaultLayoutComponent } from './containers';
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'calculators/fd',
+    redirectTo: 'finance/fd',
     pathMatch: 'full',
   }, {
-    path: 'calculators',
-    loadChildren: './calculators/calc.module#CalculatorsModule'
+    path: 'finance',
+    loadChildren: './finance/finance.module#FinanceModule'
   }
 ];
 

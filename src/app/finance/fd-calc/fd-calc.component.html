@@ -2,7 +2,7 @@
   <div class="col-md-6">
     <form #f="ngForm" name="fdForm" class="form-horizontal" (ngSubmit)="f.form.valid && onSubmit()">
       <div class="card">
-        <div class="card-header">RD Calculator</div>
+        <div class="card-header">FD Calculator</div>
         <div class="card-body">
           <div class="form-group row">
             <label class="col-sm-5 col-form-label" for="input-small">Principal</label>
@@ -45,7 +45,7 @@
   <div class="col-md-6">
     <div class="card">
       <div class="card-header">
-        Maturaty Amount: {{ amount }}
+        Maturaty Amount: <span class='bg-success p-1'>{{ amount }}</span>
       </div>
       <div class="card-body">
         <div class="chart-wrapper">

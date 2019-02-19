@@ -1,0 +1,52 @@
+<div class="row">
+  <div class="col-md-6">
+    <form #f="ngForm" name="fdForm" class="form-horizontal" (ngSubmit)="f.form.valid && onSubmit()">
+      <div class="card">
+        <div class="card-header">PPF Calculator</div>
+        <div class="card-body">
+          <div class="form-group row">
+            <label class="col-sm-5 col-form-label" for="input-small">Principal</label>
+            <div class="col-sm-6">
+              <input type="number" name="p" class="form-control" [(ngModel)]="model.p" />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-5 col-form-label" for="input-normal">Interest (in %)</label>
+            <div class="col-sm-6">
+              <input type="number" name="r" class="form-control" [(ngModel)]="model.r" disabled />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-5 col-form-label" for="input-large">Period (In Months)</label>
+            <div class="col-sm-6">
+              <input type="number" name="t" class="form-control" [(ngModel)]="model.t" disabled />
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button type="submit" class="btn btn-sm btn-primary">
+            <i class="fa fa-dot-circle-o"></i> Calculate</button>
+          <button type="reset" class="btn btn-sm btn-danger">
+            <i class="fa fa-ban"></i> Reset</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header">
+        Maturaty Amount: <span class='bg-success p-1'>{{ amount }}</span>
+      </div>
+      <div class="card-body">
+        <div class="chart-wrapper">
+          <canvas baseChart class="chart" [data]="pieChartData" [labels]="pieChartLabels" [chartType]="pieChartType"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+  </div>
+</div>

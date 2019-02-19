@@ -1,14 +1,15 @@
 import { Component, OnInit } from '@angular/core';
+import { ChartsModule } from 'ng2-charts';
 import { CalculatorUtil } from '../calc-utils';
 
 @Component({
-  selector: 'app-rd-calc',
-  templateUrl: './rd-calc.component.html',
-  styleUrls: ['./rd-calc.component.scss']
+  selector: 'app-fd-loan-calc',
+  templateUrl: './fd-calc.component.html',
+  styleUrls: ['./fd-calc.component.scss']
 })
-export class RDCalcComponent implements OnInit {
+export class FDCalcComponent implements OnInit {
 
-  model: any = { p: 500, r: 7.5, n: 4, t: 5 };
+  model: any = { p: 50000, r: 7.5, n: 4, t: 12 };
   amount: number;
   // Pie
   public pieChartLabels: string[] = ['Principal', 'Interest'];
@@ -18,6 +19,7 @@ export class RDCalcComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    this.onSubmit();
   }
 
 
@@ -26,8 +28,9 @@ export class RDCalcComponent implements OnInit {
     const r = this.model.r / 100;
     const n = this.model.n;
     const t = this.model.t;
-    this.amount = CalculatorUtil.computeRD(p, r, n, t);
-    const tp = p * t;
-    this.pieChartData = [tp, this.amount - tp];
+
+    this.amount = Math.round(CalculatorUtil.computeFD(p, r, n, t));
+    this.pieChartData = [p, this.amount - p];
   }
+
 }
