@@ -13,11 +13,10 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 import { AppComponent } from './app.component';
 
 // Import containers
-import { DefaultLayoutComponent, CalculatorLayoutComponent } from './containers';
+import { DefaultLayoutComponent } from './containers';
 
 const APP_CONTAINERS = [
-  DefaultLayoutComponent,
-  CalculatorLayoutComponent
+  DefaultLayoutComponent
 ];
 
 import {

@@ -3,8 +3,8 @@ import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
   // tslint:disable-next-line
-  selector: 'body',
-  //template: '<router-outlet></router-outlet>'
+  selector: 'app-component',
+  styleUrls: ['./app.component.scss'],
   templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit {
