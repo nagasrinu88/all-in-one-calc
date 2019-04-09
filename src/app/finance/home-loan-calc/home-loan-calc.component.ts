@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CalculatorUtil } from '../calc-utils';
+import * as ChartJS from 'chart.js';
 
 @Component({
   selector: 'app-home-loan-calc',
@@ -7,6 +8,8 @@ import { CalculatorUtil } from '../calc-utils';
   styleUrls: ['./home-loan-calc.component.scss']
 })
 export class HomeLoanCalcComponent implements OnInit {
+
+  chart: ChartJS;
 
   loan: any = {
     downPayment: 500000, amount: 2000000, tenure: 120, roi: 9.6,
@@ -18,38 +21,80 @@ export class HomeLoanCalcComponent implements OnInit {
 
   paymentCycle = [];
 
+
+  public chartLabels: any[] = [1, 2, 3, 4, 5];
+  public chartType = 'line';
+
   constructor() { }
 
-  ngOnInit() {
-    let p = CalculatorUtil.computeEMI(200000, 0.15, 24);
-    let L = 200000;
-    let r = .15;
-    let n = 24;
-    let balance = L * (Math.pow(1 + r, n) - Math.pow(1 + r, p)) / (Math.pow(1 + r, n) - 1);
-    console.log(Math.pow(1 + r, p));
-    console.log(balance);
+  ngOnInit() { }
+
+  ngAfterViewInit() {
+    const canvas: any = document.getElementById('myChart');
+    const ctx = canvas.getContext('2d');
+    this.chart = new ChartJS(ctx, {
+      type: 'line',
+      data: {
+        labels: ["New", "In Progress", "On Hold"],
+        datasets: [{
+          label: 'Principal',
+          data: [1, 2, 3],
+          borderColor: 'red',
+          borderWidth: 1
+        }, {
+          label: 'Interest',
+          data: [1, 2, 3],
+          borderColor: 'green',
+          borderWidth: 1
+        }, {
+          label: 'Rent Paying',
+          data: [1, 2, 3],
+          borderColor: 'blue',
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: false,
+        display: true
+      }
+    });
   }
+
 
   onSubmit() {
     this.paymentCycle = [];
+    this.chartLabels = [];
+
     this.loan.emi = Math.round(CalculatorUtil.computeEMI(this.loan.amount,
       this.loan.roi / 100, this.loan.tenure));
     this.loan.interest = this.loan.emi * this.loan.tenure - this.loan.amount;
 
-    console.log(this.loan);
+    let balance = this.loan.amount;
+    const date = new Date();
+    const chartData = this.chart.data;
+    chartData.labels = [];
+    chartData.datasets[0].data = [];
+    chartData.datasets[1].data = [];
+    chartData.datasets[2].data = [];
+    date.setDate(1);
     for (let i = 1; i <= this.loan.tenure; i++) {
-      const date = new Date();
-      date.setDate(1);
-      const inte = Math.round(CalculatorUtil.computeInterestForMonth(this.loan.principal,
+      const inte = Math.round(CalculatorUtil.computeInterestForMonth(this.loan.amount,
         this.loan.roi, this.loan.tenure, i, this.loan.emi));
+      balance -= (this.loan.emi - inte);
       this.paymentCycle.push({
-        date: new Date(date.setMonth(date.getMonth() + i - 1)),
+        date: new Date(date.setMonth(date.getMonth() + 1)),
         no: i,
         principal: this.loan.emi - inte,
         interest: inte
       });
+
+      chartData.labels.push(i);
+      chartData.datasets[0].data.push(this.loan.emi - inte);
+      chartData.datasets[1].data.push(inte);
+      chartData.datasets[2].data.push(10300);
+      //this.chartData.push(this.loan.emi - inte);
     }
-    console.log(this.paymentCycle);
+    this.chart.update();
   }
 
 }

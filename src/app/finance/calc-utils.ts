@@ -32,7 +32,6 @@ export class CalculatorUtil {
   }
 
   static computeInterestForMonth(p, R, N, n, emi) {
-    console.log(emi);
     return emi - Math.pow((1 / (1 + R / 1200)), (N - n + 1)) * emi;
   }
 }
