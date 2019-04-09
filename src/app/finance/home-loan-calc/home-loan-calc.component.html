@@ -1,3 +1,92 @@
-<p>
-  home-loan-calc works!
-</p>
+<div class="row">
+  <div class="col-md-6">
+    <form #f="ngForm" name="homeLoanForm" class="form-horizontal" (ngSubmit)="f.form.valid && onSubmit()">
+      <div class="card">
+        <div class="card-header">Property Details</div>
+        <div class="card-body">
+          <div class="form-group row">
+            <label class="col-sm-5 col-form-label" for="input-small">Property Value</label>
+            <div class="col-sm-6">
+              <input type="number" name="property.cost" class="form-control" [(ngModel)]="property.cost" />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-5 col-form-label" for="input-small">Registration Charges</label>
+            <div class="col-sm-6">
+              <input type="number" name="property.registration" class="form-control" [(ngModel)]="property.registration" />
+            </div>
+          </div>
+
+        </div>
+        <div class="card-footer">
+          <button type="submit" class="btn btn-sm btn-primary">
+            <i class="fa fa-dot-circle-o"></i> Calculate</button>
+          <button type="reset" class="btn btn-sm btn-danger">
+            <i class="fa fa-ban"></i> Reset</button>
+        </div>
+      </div>
+
+
+    </form>
+  </div>
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header">Loan Details</div>
+      <div class="card-body">
+        <div class="form-group row">
+          <label class="col-sm-5 col-form-label" for="input-small">Down Payment</label>
+          <div class="col-sm-6">
+            <input type="number" name="loan.downPayment" class="form-control" [(ngModel)]="loan.downPayment" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-5 col-form-label" for="input-normal">Loan Amount</label>
+          <div class="col-sm-6">
+            <input type="number" name="loan.amount" class="form-control" [(ngModel)]="loan.amount" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-5 col-form-label" for="input-normal">Tenure</label>
+          <div class="col-sm-6">
+            <input type="number" name="loan.tenure" class="form-control" [(ngModel)]="loan.tenure" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-5 col-form-label" for="input-normal">ROI</label>
+          <div class="col-sm-6">
+            <input type="number" name="loan.roi" class="form-control" [(ngModel)]="loan.roi" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <span>EMI: {{loan.emi}}</span>
+    <span>Interest Per Month: {{loan.interest / loan.tenure}}</span>
+    <span>Total Interest: {{loan.interest}}</span>
+    <span>Total Payble: {{loan.amount + loan.interest}}</span>
+    <table class="table table-striped">
+      <thead class="thead-dark">
+        <tr>
+          <th>S.No</th>
+          <th>Date</th>
+          <th>EMI</th>
+          <th>Principal</th>
+          <th>Interest</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let v of paymentCycle">
+          <td>{{v.no}}</td>
+          <td>{{v.date | date}}</td>
+          <td>{{loan.emi}}</td>
+          <td>{{v.principal}}</td>
+          <td>{{v.interest}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

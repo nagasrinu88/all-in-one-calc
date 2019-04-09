@@ -25,4 +25,14 @@ export class CalculatorUtil {
     t = t / 12;
     return p * Math.pow(1 + r / n, n * t);
   }
+
+  static computeEMI(p, r, n): number {
+    r = r / 12;
+    return (p * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
+  }
+
+  static computeInterestForMonth(p, R, N, n, emi) {
+    console.log(emi);
+    return emi - Math.pow((1 / (1 + R / 1200)), (N - n + 1)) * emi;
+  }
 }
