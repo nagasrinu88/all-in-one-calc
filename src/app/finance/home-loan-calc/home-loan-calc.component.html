@@ -36,25 +36,25 @@
         <div class="form-group row">
           <label class="col-sm-5 col-form-label" for="input-small">Down Payment</label>
           <div class="col-sm-6">
-            <input type="number" name="loan.downPayment" class="form-control" [(ngModel)]="loan.downPayment" />
+            <input type="number" name="model.loan.downPayment" class="form-control" [(ngModel)]="model.loan.downPayment" />
           </div>
         </div>
         <div class="form-group row">
           <label class="col-sm-5 col-form-label" for="input-normal">Loan Amount</label>
           <div class="col-sm-6">
-            <input type="number" name="loan.amount" class="form-control" [(ngModel)]="loan.amount" />
+            <input type="number" name="model.loan.amount" class="form-control" [(ngModel)]="model.loan.amount" />
           </div>
         </div>
         <div class="form-group row">
           <label class="col-sm-5 col-form-label" for="input-normal">Tenure</label>
           <div class="col-sm-6">
-            <input type="number" name="loan.tenure" class="form-control" [(ngModel)]="loan.tenure" />
+            <input type="number" name="model.loan.tenure" class="form-control" [(ngModel)]="model.loan.tenure" />
           </div>
         </div>
         <div class="form-group row">
           <label class="col-sm-5 col-form-label" for="input-normal">ROI</label>
           <div class="col-sm-6">
-            <input type="number" name="loan.roi" class="form-control" [(ngModel)]="loan.roi" />
+            <input type="number" name="model.loan.roi" class="form-control" [(ngModel)]="model.loan.roi" />
           </div>
         </div>
       </div>
@@ -63,10 +63,6 @@
 </div>
 
 <div class="card">
-  <div class="card-header">
-    Maturaty Amount:
-    <span class='bg-success p-1'>{{ amount }}</span>
-  </div>
   <div class="card-body">
     <div class="chart-wrapper">
       <canvas id="myChart" class="chart"></canvas>
@@ -76,10 +72,10 @@
 
 <div class="row">
   <div class="col-md-12">
-    <span>EMI: {{loan.emi}}</span>
-    <span>Interest Per Month: {{loan.interest / loan.tenure}}</span>
-    <span>Total Interest: {{loan.interest}}</span>
-    <span>Total Payble: {{loan.amount + loan.interest}}</span>
+    <span>EMI: {{model.loan.emi}}</span>
+    <span>Interest Per Month: {{model.loan.interest / model.loan.tenure}}</span>
+    <span>Total Interest: {{model.loan.interest}}</span>
+    <span>Total Payble: {{model.loan.amount + model.loan.interest}}</span>
     <table class="table table-striped">
       <thead class="thead-dark">
         <tr>
@@ -88,15 +84,19 @@
           <th>EMI</th>
           <th>Principal</th>
           <th>Interest</th>
+          <th>Tax Saved</th>
+          <th>Rent</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let v of paymentCycle">
+        <tr *ngFor="let v of model.groupByFY">
           <td>{{v.no}}</td>
-          <td>{{v.date | date}}</td>
-          <td>{{loan.emi}}</td>
+          <td>{{v.label}}</td>
+          <td>{{model.loan.emi}}</td>
           <td>{{v.principal}}</td>
           <td>{{v.interest}}</td>
+          <td>{{v.taxSaved}}</td>
+          <td>{{v.rent}}</td>
         </tr>
       </tbody>
     </table>

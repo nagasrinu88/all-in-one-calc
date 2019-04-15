@@ -11,6 +11,8 @@ export class HomeLoanCalcComponent implements OnInit {
 
   chart: ChartJS;
 
+  model: HomeLoanModel = new HomeLoanModel();
+
   loan: any = {
     downPayment: 500000, amount: 2000000, tenure: 120, roi: 9.6,
     emi: 0, interest: 0
@@ -20,10 +22,6 @@ export class HomeLoanCalcComponent implements OnInit {
   emi: number;
 
   paymentCycle = [];
-
-
-  public chartLabels: any[] = [1, 2, 3, 4, 5];
-  public chartType = 'line';
 
   constructor() { }
 
@@ -47,7 +45,7 @@ export class HomeLoanCalcComponent implements OnInit {
           borderColor: 'green',
           borderWidth: 1
         }, {
-          label: 'Rent Paying',
+          label: 'Tax Saved',
           data: [1, 2, 3],
           borderColor: 'blue',
           borderWidth: 1
@@ -58,43 +56,106 @@ export class HomeLoanCalcComponent implements OnInit {
         display: true
       }
     });
+
+    this.model.setchartData(this.chart.data);
   }
 
 
   onSubmit() {
-    this.paymentCycle = [];
-    this.chartLabels = [];
+    //doing the pre computation
+    this.model.loan.downPayment = this.property.cost + this.property.registration - this.model.loan.amount;
+    this.model.compute();
+    this.chart.update();
+  }
 
+}
+
+
+class HomeLoanModel {
+
+  MAX_TAX_SAVING_ALLOWED = 200000;
+  TAX_SLAB = 0.3;
+
+  chartData: any;
+  loan: any = {
+    downPayment: 500000, amount: 2000000, tenure: 120, roi: 9.6,
+    emi: 0, interest: 0
+  };
+  paymentCycle: any = [];
+  groupByFY = [];
+
+  setchartData(chartData: any) {
+    this.chartData = chartData;
+  }
+
+
+  compute() {
+    this.paymentCycle = [];
     this.loan.emi = Math.round(CalculatorUtil.computeEMI(this.loan.amount,
       this.loan.roi / 100, this.loan.tenure));
     this.loan.interest = this.loan.emi * this.loan.tenure - this.loan.amount;
 
     let balance = this.loan.amount;
     const date = new Date();
-    const chartData = this.chart.data;
-    chartData.labels = [];
-    chartData.datasets[0].data = [];
-    chartData.datasets[1].data = [];
-    chartData.datasets[2].data = [];
     date.setDate(1);
+    this.groupByFY = [];
+
+    this.chartData.labels = [];
+    this.chartData.datasets[0].data = [];
+    this.chartData.datasets[1].data = [];
+    this.chartData.datasets[2].data = [];
+    let fyEntries: any;
     for (let i = 1; i <= this.loan.tenure; i++) {
+      const cDate = new Date(date.setMonth(date.getMonth() + 1));
       const inte = Math.round(CalculatorUtil.computeInterestForMonth(this.loan.amount,
         this.loan.roi, this.loan.tenure, i, this.loan.emi));
       balance -= (this.loan.emi - inte);
-      this.paymentCycle.push({
-        date: new Date(date.setMonth(date.getMonth() + 1)),
+      const entry = {
+        date: cDate,
         no: i,
         principal: this.loan.emi - inte,
-        interest: inte
-      });
+        interest: inte,
+        rent: 10300 * (1 + i * 0.00417)
+      };
+      this.paymentCycle.push(entry);
+      if (this.groupByFY.length == 0 || cDate.getMonth() == 3) {
+        fyEntries = {
+          label: 'FY ' + cDate.getFullYear() + '-' + (cDate.getFullYear() + 1),
+          no: this.groupByFY.length + 1,
+          principal: 0,
+          interest: 0,
+          rent: 0,
+          taxSaved: 0,
+          entries: []
+        };
+        this.groupByFY.push(fyEntries);
+      }
+      fyEntries.entries.push(entry);
+      fyEntries.principal += entry.principal;
+      fyEntries.interest += entry.interest;
+      fyEntries.rent += Math.round(entry.rent);
 
-      chartData.labels.push(i);
-      chartData.datasets[0].data.push(this.loan.emi - inte);
-      chartData.datasets[1].data.push(inte);
-      chartData.datasets[2].data.push(10300);
-      //this.chartData.push(this.loan.emi - inte);
+      this.chartData.labels.push(i);
+      this.chartData.datasets[0].data.push(this.loan.emi - inte);
+      this.chartData.datasets[1].data.push(inte);
+      this.chartData.datasets[2].data.push(10300 * (1 + i * 0.00417));
     }
-    this.chart.update();
-  }
 
+
+    this.doPostCalculations();
+  }
+  private doPostCalculations() {
+    this.chartData.labels = [];
+    this.chartData.datasets[0].data = [];
+    this.chartData.datasets[1].data = [];
+    this.chartData.datasets[2].data = [];
+
+    this.groupByFY.forEach(e => {
+      this.chartData.labels.push(e.no);
+      this.chartData.datasets[0].data.push(e.principal);
+      this.chartData.datasets[1].data.push(e.interest);
+      e.taxSaved = Math.round(Math.min(this.MAX_TAX_SAVING_ALLOWED, e.interest) * this.TAX_SLAB);
+      this.chartData.datasets[2].data.push(e.taxSaved);
+    });
+  }
 }
