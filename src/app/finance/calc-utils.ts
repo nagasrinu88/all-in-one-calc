@@ -31,6 +31,14 @@ export class CalculatorUtil {
     return (p * r * Math.pow(1 + r, n)) / (Math.pow(1 + r, n) - 1);
   }
 
+  static computeTenure(p, r, emi): number {
+    r = r / 12;
+    const x = 1 + r;
+    const y = emi / (emi - p * r);
+    console.log(x, y);
+    return Math.log(y) / Math.log(x);
+  }
+
   static computeInterestForMonth(p, R, N, n, emi) {
     return emi - Math.pow((1 / (1 + R / 1200)), (N - n + 1)) * emi;
   }

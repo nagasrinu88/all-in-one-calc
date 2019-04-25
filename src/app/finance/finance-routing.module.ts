@@ -5,6 +5,7 @@ import { FDCalcComponent } from './fd-calc/fd-calc.component';
 import { RDCalcComponent } from './rd-calc/rd-calc.component';
 import { CalculatorLayoutComponent } from '../containers';
 import { PpfCalcComponent } from './ppf-calc/ppf-calc.component';
+import { HomeLoanPartPaymentCalcComponent } from './home-loan-part-payment-calc/home-loan-part-payment-calc.component';
 
 const routes: Routes = [
   {
@@ -33,7 +34,13 @@ const routes: Routes = [
           title: 'PPF Calculator'
         },
         component: PpfCalcComponent
-      }
+      }, {
+        path: 'home-loan-part-payment',
+        data: {
+          title: 'Home Loan Partpayment Calculator'
+        },
+        component: HomeLoanPartPaymentCalcComponent
+      },
     ]
   }
 ];

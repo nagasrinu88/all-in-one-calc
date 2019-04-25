@@ -10,6 +10,7 @@ import { AppFooterModule, AppHeaderModule } from '@coreui/angular';
 import { RDCalcComponent } from './rd-calc/rd-calc.component';
 import { CalculatorLayoutComponent } from '../containers';
 import { PpfCalcComponent } from './ppf-calc/ppf-calc.component';
+import { HomeLoanPartPaymentCalcComponent } from './home-loan-part-payment-calc/home-loan-part-payment-calc.component';
 
 @NgModule({
   imports: [
@@ -21,7 +22,7 @@ import { PpfCalcComponent } from './ppf-calc/ppf-calc.component';
     ChartsModule,
 
   ],
-  declarations: [CalculatorLayoutComponent, HomeLoanCalcComponent, FDCalcComponent, RDCalcComponent, PpfCalcComponent]
+  declarations: [CalculatorLayoutComponent, HomeLoanCalcComponent, FDCalcComponent, RDCalcComponent, PpfCalcComponent, HomeLoanPartPaymentCalcComponent]
 })
 export class FinanceModule {
 

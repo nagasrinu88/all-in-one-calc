@@ -1,0 +1,91 @@
+<div class="row">
+  <div class="col-md-6">
+    <form #f="ngForm" name="homeLoanForm" class="form-horizontal" (ngSubmit)="f.form.valid && onSubmit()">
+      <div class="card">
+        <div class="card-header">Property Details</div>
+        <div class="card-body">
+          <div class="form-group row">
+            <label class="col-sm-5 col-form-label" for="input-small">Oustanding Principal</label>
+            <div class="col-sm-6">
+              <input type="number" name="model.principal" class="form-control" [(ngModel)]="model.principal" />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-5 col-form-label" for="input-small">ROI</label>
+            <div class="col-sm-6">
+              <input type="number" name="model.roi" class="form-control" [(ngModel)]="model.roi" />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-sm-5 col-form-label" for="input-small">Tenure</label>
+            <div class="col-sm-6">
+              <input type="number" name="model.tenure" class="form-control" [(ngModel)]="model.tenure" />
+            </div>
+          </div>
+
+        </div>
+        <div class="card-footer">
+          <button type="submit" class="btn btn-sm btn-primary">
+            <i class="fa fa-dot-circle-o"></i> Calculate</button>
+          <button type="reset" class="btn btn-sm btn-danger">
+            <i class="fa fa-ban"></i> Reset</button>
+        </div>
+      </div>
+
+    </form>
+  </div>
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header">Part Payments</div>
+      <div class="card-body">
+        <div class="form-group row">
+          <label class="col-sm-5 col-form-label" for="input-small">Part Payment</label>
+          <div class="col-sm-6">
+            <input type="number" name="model.partPayment" class="form-control" [(ngModel)]="model.partPayment" />
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-sm-5 col-form-label" for="input-small">Expect RD Returns %</label>
+          <div class="col-sm-6">
+            <input type="number" name="model.rdROI" class="form-control" [(ngModel)]="model.rdROI" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card">
+  <div class="card-body">
+    <div class="chart-wrapper">
+      <canvas id="myChart" class="chart"></canvas>
+    </div>
+  </div>
+</div>
+
+<div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Principal</th>
+        <th>EMI</th>
+        <th>Tenure</th>
+        <th>Part payment</th>
+        <th>Interest Saved</th>
+        <th>RD Benefit</th>
+        <th>FD Benefit</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let e of partPayments">
+        <td>{{e.principal + e.partPayment}}</td>
+        <td>{{e.emi}}</td>
+        <td>{{e.tenure}}</td>
+        <td>{{e.partPayment}}</td>
+        <td>{{e.interestSaved + e.partPayment}}</td>
+        <td>{{e.rdBenefit}}</td>
+        <td>{{e.fdBenefit}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
