@@ -1,0 +1,45 @@
+<div class="row">
+  <div class="col-md-6">
+    <form #f="ngForm" name="fdForm" class="form-horizontal" (ngSubmit)="f.form.valid && onSubmit()">
+      <div class="card">
+        <div class="card-header">Gratuity Calculator</div>
+        <div class="card-body">
+          <div class="form-group row">
+            <label class="col-sm-5 col-form-label" for="input-small">Last Drawn Monthly Basic + DA</label>
+            <div class="col-sm-6">
+              <input type="number" name="basic" class="form-control" [(ngModel)]="basic" />
+            </div>
+          </div>          
+          <div class="form-group row">
+            <label class="col-sm-5 col-form-label" for="input-large">Period (In Years)</label>
+            <div class="col-sm-6">
+              <input type="number" name="years" class="form-control" [(ngModel)]="years" />
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <button type="submit" class="btn btn-sm btn-primary">
+            <i class="fa fa-dot-circle-o"></i> Calculate</button>
+          <button type="reset" class="btn btn-sm btn-danger">
+            <i class="fa fa-ban"></i> Reset</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header">
+        Gartuity Amount: <span class='bg-success p-1'>{{ amount }}</span>
+      </div>
+      <div class="card-body">
+        <div class="chart-wrapper">          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-6">
+  </div>
+</div>

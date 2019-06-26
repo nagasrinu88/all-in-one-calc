@@ -6,6 +6,7 @@ import { RDCalcComponent } from './rd-calc/rd-calc.component';
 import { CalculatorLayoutComponent } from '../containers';
 import { PpfCalcComponent } from './ppf-calc/ppf-calc.component';
 import { HomeLoanPartPaymentCalcComponent } from './home-loan-part-payment-calc/home-loan-part-payment-calc.component';
+import { GratuityComponent } from './gratuity/gratuity.component';
 
 const routes: Routes = [
   {
@@ -40,7 +41,13 @@ const routes: Routes = [
           title: 'Home Loan Partpayment Calculator'
         },
         component: HomeLoanPartPaymentCalcComponent
-      },
+      }, {
+        path: 'gratuity',
+        data: {
+          title: 'Gratuity Calculator'
+        },
+        component: GratuityComponent
+      }
     ]
   }
 ];
