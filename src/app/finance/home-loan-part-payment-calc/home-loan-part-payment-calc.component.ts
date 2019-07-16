@@ -39,18 +39,18 @@ export class HomeLoanPartPaymentCalcComponent implements OnInit {
           borderWidth: 1
         }, {
           label: 'Interest Saved',
-          data: [1, 2, 3],
+          data: [1, 4, 3],
           borderColor: 'green',
           borderWidth: 1
         }, {
           label: 'RD Benifit',
-          data: [1, 2, 3],
+          data: [2, 2, 1],
           borderColor: 'blue',
           borderWidth: 1
         }, {
           label: 'FD Benifit',
-          data: [1, 2, 3],
-          borderColor: 'blue',
+          data: [3, 2, 1],
+          borderColor: 'cyan',
           borderWidth: 1
         }]
       },
@@ -72,7 +72,7 @@ export class HomeLoanPartPaymentCalcComponent implements OnInit {
     const chartData = this.chart.data;
 
     for (let i = 0; i < 20; i++) {
-      const payment = 100000 + 25000 * i;
+      const payment = this.model.partPayment + 25000 * i;
       const compute = this.computeNewPayment(payment);
       chartData.labels[i] = i;
       chartData.datasets[0].data[i] = payment;

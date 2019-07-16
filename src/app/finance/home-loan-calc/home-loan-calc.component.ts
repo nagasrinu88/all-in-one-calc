@@ -17,8 +17,9 @@ export class HomeLoanCalcComponent implements OnInit {
     downPayment: 500000, amount: 2000000, tenure: 120, roi: 9.6,
     emi: 0, interest: 0
   };
+  REGISTRATION_RATIO = 0.06;
   property: any = { cost: 2500000, registration: 100000 };
-  rent: any = { paid: 123600, avgIncrement: 5 };
+  rent: any = { perMonth: 11100, paid: 123600, avgIncrement: 10 };
   emi: number;
 
   paymentCycle = [];
@@ -63,6 +64,7 @@ export class HomeLoanCalcComponent implements OnInit {
 
   onSubmit() {
     //doing the pre computation
+    this.property.registration = this.property.cost * this.REGISTRATION_RATIO;
     this.model.loan.downPayment = this.property.cost + this.property.registration - this.model.loan.amount;
     this.model.compute();
     this.chart.update();
