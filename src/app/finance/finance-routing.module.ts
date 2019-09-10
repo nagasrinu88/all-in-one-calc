@@ -7,6 +7,7 @@ import { CalculatorLayoutComponent } from '../containers';
 import { PpfCalcComponent } from './ppf-calc/ppf-calc.component';
 import { HomeLoanPartPaymentCalcComponent } from './home-loan-part-payment-calc/home-loan-part-payment-calc.component';
 import { GratuityComponent } from './gratuity/gratuity.component';
+import { SalaryComponent } from './salary-calc/salary-calc.component';
 
 const routes: Routes = [
   {
@@ -47,6 +48,12 @@ const routes: Routes = [
           title: 'Gratuity Calculator'
         },
         component: GratuityComponent
+      }, {
+        path: 'salary',
+        data: {
+          title: 'Salary Calculator'
+        },
+        component: SalaryComponent
       }
     ]
   }

@@ -1,4 +1,27 @@
 <div class="row">
+  <div class="col-md-12">
+    <table class="table table-striped">
+      <thead>
+        <th>S.No</th><th>EMI</th><th>Interest Per Month</th><th>Total Interest</th><th>Total Payable</th>
+        <th>Loan Amount</th><th>Loan Tenure</th><th>Loan ROI</th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let entry of comperasions">
+          <td>{{entry.emi}}</td>
+          <td>{{entry.emi}}</td>
+          <td>{{entry.interestPerMonth}}</td>
+          <td>{{entry.totalInterest}}</td>
+          <td>{{entry.totalPayable}}</td>
+          <td>{{entry.loan.amount}}</td>
+          <td>{{entry.loan.tenure}}</td>
+          <td>{{entry.loan.roi}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="row">
   <div class="col-md-6">
     <form #f="ngForm" name="homeLoanForm" class="form-horizontal" (ngSubmit)="f.form.valid && onSubmit()">
       <div class="card">
@@ -27,9 +50,14 @@
         </div>
         <div class="card-footer">
           <button type="submit" class="btn btn-sm btn-primary">
-            <i class="fa fa-dot-circle-o"></i> Calculate</button>
+            <i class="fa fa-dot-circle-o"></i> Calculate
+          </button>
           <button type="reset" class="btn btn-sm btn-danger">
-            <i class="fa fa-ban"></i> Reset</button>
+            <i class="fa fa-ban"></i> Reset
+          </button>
+          <button type="button" class="btn btn-sm" (click)="addToCompare()">
+              <i class="fa fa-ban"></i> Add to Compare
+            </button>
         </div>
       </div>
 

@@ -21,6 +21,7 @@ export class HomeLoanCalcComponent implements OnInit {
   property: any = { cost: 2500000, registration: 100000 };
   rent: any = { perMonth: 11100, paid: 123600, avgIncrement: 10 };
   emi: number;
+  comperasions = [];
 
   paymentCycle = [];
 
@@ -46,7 +47,7 @@ export class HomeLoanCalcComponent implements OnInit {
           borderColor: 'green',
           borderWidth: 1
         }, {
-          label: 'Tax Saved',
+          label: 'Rent Paid',
           data: [1, 2, 3],
           borderColor: 'blue',
           borderWidth: 1
@@ -66,8 +67,23 @@ export class HomeLoanCalcComponent implements OnInit {
     //doing the pre computation
     this.property.registration = this.property.cost * this.REGISTRATION_RATIO;
     this.model.loan.downPayment = this.property.cost + this.property.registration - this.model.loan.amount;
-    this.model.compute();
+    this.model.compute(this.rent);
     this.chart.update();
+  }
+
+  addToCompare() {
+    this.comperasions.push({
+      emi: this.model.loan.emi,
+      interestPerMonth: this.model.loan.interest / this.model.loan.tenure,
+      totalInterest: this.model.loan.interest,
+      totalPayable: this.model.loan.amount + this.model.loan.interest,
+      loan: {
+        amount: this.model.loan.amount,
+        tenure: this.model.loan.tenure,
+        roi: this.model.loan.roi
+      }
+    });
+    console.log(this.comperasions);
   }
 
 }
@@ -91,7 +107,7 @@ class HomeLoanModel {
   }
 
 
-  compute() {
+  compute(rent: any) {
     this.paymentCycle = [];
     this.loan.emi = Math.round(CalculatorUtil.computeEMI(this.loan.amount,
       this.loan.roi / 100, this.loan.tenure));
@@ -117,7 +133,7 @@ class HomeLoanModel {
         no: i,
         principal: this.loan.emi - inte,
         interest: inte,
-        rent: 10300 * (1 + i * 0.00417)
+        rent: rent.perMonth * (1 + i * 0.00417)
       };
       this.paymentCycle.push(entry);
       if (this.groupByFY.length == 0 || cDate.getMonth() == 3) {
@@ -144,20 +160,20 @@ class HomeLoanModel {
     }
 
 
-    this.doPostCalculations();
+    this.doPostCalculations(rent);
   }
-  private doPostCalculations() {
+  private doPostCalculations(rent: any) {
     this.chartData.labels = [];
     this.chartData.datasets[0].data = [];
     this.chartData.datasets[1].data = [];
     this.chartData.datasets[2].data = [];
 
-    this.groupByFY.forEach(e => {
+    this.groupByFY.forEach((e, i) => {
       this.chartData.labels.push(e.no);
       this.chartData.datasets[0].data.push(e.principal);
       this.chartData.datasets[1].data.push(e.interest);
       e.taxSaved = Math.round(Math.min(this.MAX_TAX_SAVING_ALLOWED, e.interest) * this.TAX_SLAB);
-      this.chartData.datasets[2].data.push(e.taxSaved);
+      this.chartData.datasets[2].data.push(rent.perMonth * (1 + i * 0.00417));
     });
   }
 }
