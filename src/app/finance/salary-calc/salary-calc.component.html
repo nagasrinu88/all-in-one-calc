@@ -13,20 +13,41 @@
           <div class="form-group row">
             <label class="col-sm-5 col-form-label" for="input-small">Variable Pay</label>
             <div class="col-sm-6">
-              <input type="number" name="variablePay" class="form-control" [(ngModel)]="variablePay" />
+              <div class="input-group">
+                <input type="number" name="variablePay" class="form-control" [(ngModel)]="variablePay" />
+                <div class="input-group-append">
+                  <span class="input-group-text">
+                    {{variablePay/ctc*100 | number: '.1-1'}}%
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
 
           <div class="form-group row">
             <label class="col-sm-5 col-form-label" for="input-small">Basic</label>
             <div class="col-sm-6">
-              <input type="number" name="basicPay" class="form-control" [(ngModel)]="basicPay" />
+              <div class="input-group">
+                <input type="number" name="basicPay" class="form-control" [(ngModel)]="basicPay" />
+                <div class="input-group-append">
+                  <span class="input-group-text">
+                    {{basicPay/ctc*100 | number: '.1-1'}}%
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
           <div class="form-group row">
             <label class="col-sm-5 col-form-label" for="input-small">HRA</label>
             <div class="col-sm-6">
-              <input type="number" name="hra" class="form-control" [(ngModel)]="hra" />
+              <div class="input-group">
+                <input type="number" name="hra" class="form-control" [(ngModel)]="hra" />
+                <div class="input-group-append">
+                  <span class="input-group-text">
+                    {{hra/ctc*100 | number: '.1-1'}}%
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
           <div class="form-group row">
@@ -68,6 +89,43 @@
           <strong class="h4">{{totalTax}}</strong>
         </div>
       </div>
+    </div>
+    <div class="row">
+      <table class="table" *ngIf="taxableSalary">
+        <thead>
+          <tr>
+            <th>Slab Range</th>
+            <th>Slab %</th>
+            <th>Amount</th>
+            <th>Tax</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>0L - 2.5L</th>
+            <td>No Tax</td>
+            <td></td>
+          </tr>
+          <tr>
+            <th>2.5L - 5L</th>
+            <td>5%</td>
+            <td>{{taxSlab[1].val}}</td>
+            <td>{{taxSlab[1].tax}}</td>
+          </tr>
+          <tr>
+            <th>5L - 10L</th>
+            <td>20%</td>
+            <td>{{taxSlab[2].val}}</td>
+            <td>{{taxSlab[2].tax}}</td>
+          </tr>
+          <tr>
+            <th>10L +</th>
+            <td>30%</td>
+            <td>{{taxSlab[3].val}}</td>
+            <td>{{taxSlab[3].tax}}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 </div>

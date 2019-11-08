@@ -17,6 +17,7 @@ export class SalaryComponent implements OnInit {
   netPerMonth;
 
   taxableSalary;
+  taxSlab: any = {};
   totalTax;
 
   constructor() { }
@@ -30,6 +31,7 @@ export class SalaryComponent implements OnInit {
     this.taxableSalary = gross;
     this.totalTax = this.computeTax(gross);
     this.netPerMonth = Math.round((gross - this.totalTax) / 12);
+    this.computeTax(this.taxableSalary);
   }
 
   computeTax(val: number) {
@@ -37,14 +39,17 @@ export class SalaryComponent implements OnInit {
     val -= 250000;
     if (val > 0) {
       tax += 0.05 * Math.min(250000, val);
+      this.taxSlab[1] = { val: Math.min(250000, val), tax: 0.05 * Math.min(250000, val) };
       val -= 250000;
     }
     if (val > 0) {
       tax += 0.2 * Math.min(500000, val);
+      this.taxSlab[2] = { val: Math.min(500000, val), tax: 0.2 * Math.min(500000, val) };
       val -= 500000;
     }
     if (val > 0) {
       tax += 0.3 * val;
+      this.taxSlab[3] = { val: val, tax: 0.3 * val };
     }
     return tax;
   }
