@@ -13,6 +13,9 @@ export const routes: Routes = [
   }, {
     path: 'finance',
     loadChildren: './finance/finance.module#FinanceModule'
+  }, {
+    path: 'converters',
+    loadChildren: './converters/converters.module#ConvertersModule'
   }
 ];
 
