@@ -1,9 +1,12 @@
-<app-header [fixed]="true" [navbarBrandFull]="{src: 'assets/img/brand/logo.svg', width: 89, height: 25, alt: 'CoreUI Logo'}"
-  [navbarBrandMinimized]="{src: 'assets/img/brand/sygnet.svg', width: 30, height: 30, alt: 'CoreUI Logo'}" [sidebarToggler]="'lg'"
+<app-header [fixed]="true" [navbarBrandFull]="{src: 'assets/img/brand/angular-icon.svg', width: 89, height: 25, alt: 'All in 1 Calc'}"
+  [navbarBrandMinimized]="{src1: 'assets/img/brand/angular-icon.svg', width: 30, height: 30, alt: 'CoreUI Logo'}" [sidebarToggler]="'lg'"
   [asideMenuToggler]="'lg'">
   <ul class="nav navbar-nav d-md-down-none">
     <li class="nav-item px-3">
-      <a class="nav-link" routerLink="/finance/fd">Home</a>
+      <a class="nav-link" routerLink="/finance/fd">Finance</a>
+    </li>
+    <li class="nav-item px-3">
+      <a class="nav-link" routerLink="/converters/delim">Converters</a>
     </li>
     <li class="nav-item px-3">
       <a class="nav-link" routerLink="/finance/rd">About Us</a>

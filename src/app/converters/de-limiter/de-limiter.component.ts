@@ -16,8 +16,7 @@ export class DeLimiterComponent implements OnInit {
   }
 
   convert() {
-    this.output = this.input.split("\n").join("','");
-    console.log(this.input);
+    this.output = this.input.split("\n").join(",");
   }
 
 }
