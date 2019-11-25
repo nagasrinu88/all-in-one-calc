@@ -1,0 +1,18 @@
+<div>
+  <input type="number" name="buy" [(ngModel)]="buy" (ngModelChange)="this.buyUpdated.next($event)" />
+  <input type="number" name="qty" [(ngModel)]="qty"(ngModelChange)="this.qtyUpdated.next($event)" />
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Margin</th>
+        <th *ngFor="let v of margins;">{{v}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th>Net +/-</th>
+        <th *ngFor="let v of net;">{{v}}</th>
+      </tr>
+    </tbody>
+  </table>
+</div>

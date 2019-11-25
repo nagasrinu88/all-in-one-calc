@@ -8,6 +8,7 @@ import { PpfCalcComponent } from './ppf-calc/ppf-calc.component';
 import { HomeLoanPartPaymentCalcComponent } from './home-loan-part-payment-calc/home-loan-part-payment-calc.component';
 import { GratuityComponent } from './gratuity/gratuity.component';
 import { SalaryComponent } from './salary-calc/salary-calc.component';
+import { StockCalcComponent } from './stock-calc/stock-calc.component';
 
 const routes: Routes = [
   {
@@ -54,6 +55,12 @@ const routes: Routes = [
           title: 'Salary Calculator'
         },
         component: SalaryComponent
+      }, {
+        path: 'stock',
+        data: {
+          title: 'Stock Brokarage Calculator'
+        },
+        component: StockCalcComponent
       }
     ]
   }

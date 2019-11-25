@@ -14,6 +14,7 @@ import { HomeLoanPartPaymentCalcComponent } from './home-loan-part-payment-calc/
 import { TaxCalcComponent } from './tax-calc/tax-calc.component';
 import { GratuityComponent } from './gratuity/gratuity.component';
 import { SalaryComponent } from './salary-calc/salary-calc.component';
+import { StockCalcComponent } from './stock-calc/stock-calc.component';
 
 @NgModule({
   imports: [
@@ -25,7 +26,7 @@ import { SalaryComponent } from './salary-calc/salary-calc.component';
     ChartsModule,
 
   ],
-  declarations: [CalculatorLayoutComponent, HomeLoanCalcComponent, FDCalcComponent, RDCalcComponent, PpfCalcComponent, HomeLoanPartPaymentCalcComponent, TaxCalcComponent, GratuityComponent, SalaryComponent]
+  declarations: [CalculatorLayoutComponent, HomeLoanCalcComponent, FDCalcComponent, RDCalcComponent, PpfCalcComponent, HomeLoanPartPaymentCalcComponent, TaxCalcComponent, GratuityComponent, SalaryComponent, StockCalcComponent]
 })
 export class FinanceModule {
 
