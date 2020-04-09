@@ -1,4 +1,4 @@
-import { NgModule } from "@angular/core";
+import { NgModule } from '@angular/core';
 import { FinanceRoutingModule } from './finance-routing.module';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -26,8 +26,10 @@ import { StockCalcComponent } from './stock-calc/stock-calc.component';
     ChartsModule,
 
   ],
-  declarations: [CalculatorLayoutComponent, HomeLoanCalcComponent, FDCalcComponent, RDCalcComponent, PpfCalcComponent, HomeLoanPartPaymentCalcComponent, TaxCalcComponent, GratuityComponent, SalaryComponent, StockCalcComponent]
+  declarations: [CalculatorLayoutComponent, HomeLoanCalcComponent,
+    FDCalcComponent, RDCalcComponent, PpfCalcComponent,
+    HomeLoanPartPaymentCalcComponent, TaxCalcComponent,
+    GratuityComponent, SalaryComponent, StockCalcComponent]
 })
 export class FinanceModule {
-
 }

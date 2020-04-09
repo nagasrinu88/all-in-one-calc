@@ -16,6 +16,9 @@ export const routes: Routes = [
   }, {
     path: 'converters',
     loadChildren: './converters/converters.module#ConvertersModule'
+  }, {
+    path: 'games',
+    loadChildren: './games/games.module#GamesModule'
   }
 ];
 
