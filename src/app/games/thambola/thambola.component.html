@@ -1,2 +1,8 @@
+<div class="grid">
+  <span class="cell" *ngFor="let x of [].constructor(90); let i = index" [ngClass]="{active:numMap[i+1]}">
+    {{i+1}}
+  </span>
+</div>
+
 <button (click)="start()">Start</button>
 <p class="number-big">{{num}}</p>

@@ -9,8 +9,11 @@ export class ThambolaComponent implements OnInit {
 
   synthesiser: Window['speechSynthesis'];
   numbers: any[];
+  picked: any[];
+  numMap = {};
   timerId: any;
   num = '-';
+  delay = 5000;
 
   constructor() {
     this.synthesiser = speechSynthesis;
@@ -33,8 +36,10 @@ export class ThambolaComponent implements OnInit {
 
   start() {
     this.numbers = [];
+    this.picked = [];
+    this.numMap = {};
     for (let i = 1; i <= 90; i++) {
-      this.numbers.push(i);
+      this.numbers.push({ val: i, active: false });
     }
     this.applyRandom(this.numbers);
     console.log(this.numbers);
@@ -46,16 +51,23 @@ export class ThambolaComponent implements OnInit {
     const msg = new SpeechSynthesisUtterance();
     clearInterval(this.timerId);
     this.timerId = setInterval(() => {
-      this.num = this.numbers.splice(0, 1)[0];
+      const pick = this.numbers.splice(0, 1)[0];
+      this.picked.push(pick);
+      this.num = pick.val;
+      this.numMap[pick.val] = true;
       console.log(this.num);
-      msg.text = '' + this.num;
+      msg.text = '' + pick.val;
       this.synthesiser.speak(msg);
       this.applyRandom(this.numbers);
-    }, 3000);
+
+    }, this.delay);
   }
 
   stop() { }
 
+  hasNumber(n) {
+    return true;
+  }
 
 
 }

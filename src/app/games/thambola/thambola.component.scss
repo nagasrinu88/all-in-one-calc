@@ -2,3 +2,27 @@
   text-align: center;
   font-size: 12em;
 }
+
+.grid {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  .cell {
+    width: 100px;
+    flex: 1 0 9%;
+    border: 1px solid #d4d4d4;
+    text-align: center;
+    margin: 2px;
+    background: #d4d4d4;
+    color: #a2a2a2;
+    -webkit-transition: background 1.5s;
+    transition: background 1.5s;
+
+    &.active {
+      background: #378e1a;
+      border-color: #67c142;
+      color: #fff;
+      font-weight: bold;
+    }
+  }
+}
