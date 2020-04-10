@@ -13,14 +13,16 @@ export class ThambolaComponent implements OnInit {
   numMap = {};
   timerId: any;
   num = '-';
-  delay = 5000;
+  delay = 5;
+  paused = false;
+  started = false;
 
   constructor() {
     this.synthesiser = speechSynthesis;
   }
 
   ngOnInit() {
-    // this.start();
+    this.reset();
   }
 
   applyRandom(nums: number[]) {
@@ -35,9 +37,7 @@ export class ThambolaComponent implements OnInit {
   }
 
   start() {
-    this.numbers = [];
-    this.picked = [];
-    this.numMap = {};
+    this.num = 'Starting...';
     for (let i = 1; i <= 90; i++) {
       this.numbers.push({ val: i, active: false });
     }
@@ -60,10 +60,35 @@ export class ThambolaComponent implements OnInit {
       this.synthesiser.speak(msg);
       this.applyRandom(this.numbers);
 
-    }, this.delay);
+    }, this.delay * 1000);
   }
 
-  stop() { }
+  reset() {
+    this.num = 'Click on "Start" to Start the Game';
+    this.numbers = [];
+    this.picked = [];
+    this.numMap = {};
+    this.paused = false;
+  }
+
+  toggleGame() {
+    if (this.started) {
+      clearInterval(this.timerId);
+      this.reset();
+    } else {
+      this.start();
+    }
+    this.started = !this.started;
+  }
+
+  pause() {
+    if (this.paused) {
+      this.continue();
+    } else {
+      clearInterval(this.timerId);
+    }
+    this.paused = !this.paused;
+  }
 
   hasNumber(n) {
     return true;

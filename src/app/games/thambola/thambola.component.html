@@ -4,5 +4,8 @@
   </span>
 </div>
 
-<button (click)="start()">Start</button>
-<p class="number-big">{{num}}</p>
+<div style="text-align:center">
+  <button class="btn btn-lg btn-primary" *ngIf="!paused" (click)="toggleGame()">{{started?'Stop':'Start'}}</button>
+  <button class="btn btn-lg btn-secondary" *ngIf="started" (click)="pause()">{{paused?'Resume':'Pause'}}</button>
+  <p class="number-big">{{num}}</p>
+</div>
